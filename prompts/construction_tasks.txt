@@ -1,0 +1,88 @@
+# Construction Task Prompts
+
+## Material Sourcing Prompts
+
+### Residential Extension Materials
+"What materials do I need for a residential extension project?"
+"Help me source materials for a single storey extension"
+"What are the best materials for a loft conversion?"
+
+### Commercial Building Materials
+"What materials are required for a commercial office building?"
+"Help me source materials for a warehouse construction"
+"What are the specifications for industrial building materials?"
+
+### Foundation Work Materials
+"What materials do I need for foundation work?"
+"Help me source materials for piling and groundworks"
+"What are the requirements for concrete foundations?"
+
+## Tender Document Analysis Prompts
+
+### Tender Analysis
+"How do I analyze a tender document for a construction project?"
+"What are the key requirements in this tender document?"
+"Help me understand the evaluation criteria in this tender"
+
+### RFD Processing
+"What are the key requirements for an RFD submission?"
+"Help me prepare documents for an RFD request"
+"What documents do I need to submit for this project?"
+
+## Project Management Prompts
+
+### Timeline Planning
+"What is a realistic timeline for a residential extension?"
+"How long will a commercial building project take?"
+"What are the key milestones for this construction project?"
+
+### Cost Estimation
+"What is the estimated cost for a residential extension?"
+"Help me budget for a commercial building project"
+"What are the typical costs for foundation work?"
+
+### Risk Assessment
+"What are the main risks for this construction project?"
+"Help me identify potential issues with this build"
+"What risk mitigation strategies should I consider?"
+
+## Regulatory Compliance Prompts
+
+### Building Regulations
+"What are the UK building regulations for foundations?"
+"Help me understand planning permission requirements"
+"What are the fire safety requirements for this project?"
+
+### Quality Standards
+"What quality standards apply to this construction work?"
+"Help me ensure compliance with construction standards"
+"What certifications do I need for this project?"
+
+## Technical Specification Prompts
+
+### Electrical Work
+"What electrical materials do I need for a new build?"
+"Help me specify electrical requirements for this project"
+"What are the electrical standards for commercial buildings?"
+
+### Plumbing Work
+"What plumbing materials are required for this project?"
+"Help me specify plumbing requirements for a bathroom"
+"What are the water regulations for this installation?"
+
+### Insulation Requirements
+"What insulation materials do I need for cavity walls?"
+"Help me specify thermal insulation requirements"
+"What are the energy efficiency requirements for this project?"
+
+## Supplier and Procurement Prompts
+
+### Supplier Selection
+"Who are the best suppliers for construction materials?"
+"Help me find reliable suppliers for this project"
+"What should I look for when selecting suppliers?"
+
+### Procurement Process
+"What is the best procurement process for this project?"
+"Help me understand the tendering process"
+"What are the key considerations for material procurement?" 

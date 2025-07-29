@@ -1,0 +1,172 @@
+# Construction Materials Guide - UK Standards
+
+## Structural Materials
+
+### Concrete
+- **Types**: C20, C25, C30, C35, C40 (strength classes)
+- **Applications**: Foundations, structural elements, slabs
+- **UK Standards**: BS EN 206-1, BS 8500
+- **Suppliers**: Hanson, CEMEX, Tarmac, Aggregate Industries
+- **Cost Range**: £80-120 per cubic metre
+- **Lead Time**: 1-3 days for ready-mix
+
+### Steel
+- **Types**: Mild steel, high-strength steel, stainless steel
+- **Applications**: Structural frames, reinforcement, connections
+- **UK Standards**: BS EN 10025, BS 4449
+- **Suppliers**: British Steel, Tata Steel, ArcelorMittal
+- **Cost Range**: £600-1200 per tonne
+- **Lead Time**: 2-6 weeks for structural sections
+
+### Timber
+- **Types**: Softwood, hardwood, engineered timber (CLT, glulam)
+- **Applications**: Framing, flooring, cladding, structural elements
+- **UK Standards**: BS EN 14081, BS 5268
+- **Suppliers**: James Latham, Arnold Laver, Travis Perkins
+- **Cost Range**: £20-80 per square metre
+- **Lead Time**: 1-2 weeks
+
+## Insulation Materials
+
+### Cavity Wall Insulation
+- **Types**: Mineral wool, phenolic foam, PIR boards
+- **Thermal Performance**: 0.18-0.22 W/m²K
+- **UK Standards**: BS EN 13162, Building Regulations Part L
+- **Suppliers**: Kingspan, Celotex, Rockwool
+- **Cost Range**: £8-15 per square metre
+- **Installation**: Professional installation required
+
+### Roof Insulation
+- **Types**: Mineral wool, PIR boards, spray foam
+- **Thermal Performance**: 0.13-0.18 W/m²K
+- **UK Standards**: BS EN 13162, Building Regulations Part L
+- **Suppliers**: Kingspan, Celotex, Rockwool
+- **Cost Range**: £12-25 per square metre
+- **Installation**: During roof construction or retrofit
+
+## Finishing Materials
+
+### Plaster and Render
+- **Types**: Gypsum plaster, cement render, lime render
+- **Applications**: Internal walls, external facades
+- **UK Standards**: BS EN 520, BS EN 998
+- **Suppliers**: British Gypsum, Weber, Parex
+- **Cost Range**: £15-30 per square metre
+- **Application**: Professional application recommended
+
+### Flooring
+- **Types**: Hardwood, engineered wood, laminate, vinyl, carpet
+- **Applications**: Residential and commercial flooring
+- **UK Standards**: BS EN 13329, BS EN 14041
+- **Suppliers**: Tarkett, Forbo, Interface
+- **Cost Range**: £20-150 per square metre
+- **Installation**: Varies by material type
+
+## Roofing Materials
+
+### Roof Tiles
+- **Types**: Concrete tiles, clay tiles, slate
+- **Applications**: Pitched roofs, heritage projects
+- **UK Standards**: BS EN 490, BS EN 1304
+- **Suppliers**: Marley, Redland, Sandtoft
+- **Cost Range**: £25-80 per square metre
+- **Installation**: Professional roofing contractor
+
+### Flat Roofing
+- **Types**: Built-up felt, single-ply membranes, liquid applied
+- **Applications**: Flat roofs, balconies, terraces
+- **UK Standards**: BS EN 13707, BS EN 13956
+- **Suppliers**: Sika, Bauder, IKO
+- **Cost Range**: £30-80 per square metre
+- **Installation**: Specialist contractor required
+
+## Windows and Doors
+
+### Windows
+- **Types**: uPVC, timber, aluminium, composite
+- **Energy Performance**: A+ to C ratings
+- **UK Standards**: BS EN 14351, Building Regulations Part L
+- **Suppliers**: Anglian, Everest, Safestyle
+- **Cost Range**: £300-1500 per window
+- **Installation**: FENSA registered installer required
+
+### Doors
+- **Types**: Timber, uPVC, composite, steel
+- **Security Standards**: PAS 24, Secured by Design
+- **UK Standards**: BS EN 14351, Building Regulations Part M
+- **Suppliers**: Jeld-Wen, Solidor, Rockdoor
+- **Cost Range**: £200-2000 per door
+- **Installation**: Professional fitting recommended
+
+## Plumbing and Electrical
+
+### Plumbing Materials
+- **Pipes**: Copper, PEX, polybutylene
+- **Fittings**: Compression, soldered, push-fit
+- **UK Standards**: BS EN 1057, WRAS approval
+- **Suppliers**: Wolseley, Plumb Center, Screwfix
+- **Cost Range**: £5-50 per metre (pipes)
+
+### Electrical Materials
+- **Cables**: Twin and earth, SWA, fire-resistant
+- **Consumer Units**: 17th/18th edition compliant
+- **UK Standards**: BS 7671 (IET Wiring Regulations)
+- **Suppliers**: Screwfix, Toolstation, CEF
+- **Cost Range**: £1-10 per metre (cables)
+
+## Sustainability and Green Materials
+
+### Sustainable Options
+- **Recycled Materials**: Recycled steel, reclaimed timber
+- **Low Carbon**: Hempcrete, straw bale, rammed earth
+- **Renewable**: Bamboo, cork, natural insulation
+- **Certifications**: FSC, PEFC, BREEAM
+- **Suppliers**: Various specialist suppliers
+- **Cost Premium**: 10-30% above standard materials
+
+## Material Selection Guidelines
+
+### Project Type Considerations
+- **Residential**: Focus on comfort, energy efficiency, aesthetics
+- **Commercial**: Durability, fire resistance, maintenance
+- **Industrial**: Strength, chemical resistance, safety
+- **Heritage**: Traditional materials, conservation requirements
+
+### Budget Planning
+- **Low Budget**: Standard materials, bulk purchasing
+- **Medium Budget**: Quality materials, some premium options
+- **High Budget**: Premium materials, bespoke solutions
+
+### Timeline Considerations
+- **Quick Projects**: Readily available materials
+- **Long-term Projects**: Materials with longer lead times
+- **Seasonal Projects**: Weather-dependent materials
+
+## Regulatory Compliance
+
+### Building Regulations
+- **Part A**: Structural safety
+- **Part B**: Fire safety
+- **Part C**: Site preparation and resistance to contaminants
+- **Part L**: Conservation of fuel and power
+- **Part M**: Access to and use of buildings
+
+### Standards and Certifications
+- **CE Marking**: European conformity
+- **UKCA Marking**: UK conformity assessment
+- **BBA Certificates**: British Board of Agrément
+- **BRE Certification**: Building Research Establishment
+
+## Supplier Selection Criteria
+
+### Reliability Factors
+- **Track Record**: Established suppliers with good reputation
+- **Financial Stability**: Secure supply chain
+- **Quality Assurance**: ISO 9001 certification
+- **Technical Support**: Expert advice and after-sales service
+
+### Cost Considerations
+- **Bulk Discounts**: Volume purchasing benefits
+- **Delivery Costs**: Transportation and handling
+- **Storage Requirements**: On-site or off-site storage
+- **Waste Management**: Disposal and recycling options 

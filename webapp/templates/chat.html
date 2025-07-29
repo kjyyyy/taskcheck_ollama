@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏗️ Construction TaskCheck Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏗️ Construction TaskCheck Assistant</h1>
+            <p>Your AI assistant for construction materials, tender documents, and RFD processing</p>
+        </header>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        <p>Hello! I'm your Construction TaskCheck Assistant. I can help you with:</p>
+                        <ul>
+                            <li>🔧 Material sourcing and recommendations</li>
+                            <li>📋 Tender document analysis</li>
+                            <li>📄 RFD (Request for Documents) processing</li>
+                            <li>🏗️ Construction project management</li>
+                            <li>📊 Cost estimates and timelines</li>
+                        </ul>
+                        <p>What construction task can I help you with today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="input-controls">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="useContext" checked>
+                        Use Construction Knowledge Base
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="analyzeTask">
+                        Analyze Task Requirements
+                    </label>
+                </div>
+                
+                <div class="input-group">
+                    <textarea id="messageInput" placeholder="Ask about construction materials, tender documents, RFD processing, or project management..." rows="3"></textarea>
+                    <button id="sendButton" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-label">System:</span>
+                <span id="systemStatus" class="status-value">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Model:</span>
+                <span id="modelStatus" class="status-value">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Context:</span>
+                <span id="contextStatus" class="status-value">Checking...</span>
+            </div>
+        </div>
+
+        <div class="features">
+            <h3>🎯 Key Features</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔧 Material Sourcing</h4>
+                    <p>Get recommendations for construction materials, suppliers, and cost estimates</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📋 Tender Analysis</h4>
+                    <p>Analyze tender documents and extract key requirements, deadlines, and specifications</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📄 RFD Processing</h4>
+                    <p>Process Request for Documents and organize construction project documentation</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🏗️ Project Management</h4>
+                    <p>Get guidance on construction timelines, regulatory compliance, and risk assessment</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isProcessing = false;
+
+        // Check system status on page load
+        window.onload = function() {
+            checkSystemStatus();
+        };
+
+        async function checkSystemStatus() {
+            try {
+                const response = await fetch('/health');
+                const data = await response.json();
+                
+                document.getElementById('systemStatus').textContent = data.status;
+                document.getElementById('systemStatus').className = 'status-value ' + data.status;
+                
+                document.getElementById('modelStatus').textContent = data.model || 'Unknown';
+                document.getElementById('contextStatus').textContent = data.context_loaded ? 'Loaded' : 'Not loaded';
+                document.getElementById('contextStatus').className = 'status-value ' + (data.context_loaded ? 'healthy' : 'unhealthy');
+                
+            } catch (error) {
+                console.error('Error checking system status:', error);
+                document.getElementById('systemStatus').textContent = 'Error';
+                document.getElementById('systemStatus').className = 'status-value error';
+            }
+        }
+
+        async function sendMessage() {
+            if (isProcessing) return;
+
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (!message) return;
+
+            const useContext = document.getElementById('useContext').checked;
+            const analyzeTask = document.getElementById('analyzeTask').checked;
+
+            // Add user message to chat
+            addMessage(message, 'user');
+            messageInput.value = '';
+            
+            isProcessing = true;
+            document.getElementById('sendButton').disabled = true;
+            document.getElementById('sendButton').textContent = 'Processing...';
+
+            try {
+                const response = await fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        question: message,
+                        use_context: useContext,
+                        analyze_task: analyzeTask
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    addMessage('Sorry, I encountered an error: ' + data.error, 'bot', 'error');
+                } else {
+                    let botResponse = data.answer;
+                    
+                    // Add task analysis if available
+                    if (data.task_analysis) {
+                        botResponse += '\n\n📊 **Task Analysis:**\n';
+                        botResponse += `• **Task Type:** ${data.task_analysis.task_type}\n`;
+                        botResponse += `• **Complexity:** ${data.task_analysis.complexity_level}\n`;
+                        botResponse += `• **Timeline:** ${data.task_analysis.estimated_timeline}\n`;
+                        botResponse += `• **Cost Estimate:** ${data.task_analysis.cost_estimate}\n`;
+                        
+                        if (data.task_analysis.recommended_materials && data.task_analysis.recommended_materials.length > 0) {
+                            botResponse += `• **Materials:** ${data.task_analysis.recommended_materials.slice(0, 3).join(', ')}...\n`;
+                        }
+                        
+                        if (data.task_analysis.regulatory_requirements && data.task_analysis.regulatory_requirements.length > 0) {
+                            botResponse += `• **Regulations:** ${data.task_analysis.regulatory_requirements.slice(0, 3).join(', ')}...\n`;
+                        }
+                    }
+                    
+                    // Add sources if available
+                    if (data.sources && data.sources.length > 0) {
+                        botResponse += '\n\n📚 **Sources:**\n';
+                        data.sources.forEach(source => {
+                            const fileName = source.split('/').pop();
+                            botResponse += `• ${fileName}\n`;
+                        });
+                    }
+                    
+                    addMessage(botResponse, 'bot');
+                }
+                
+            } catch (error) {
+                console.error('Error sending message:', error);
+                addMessage('Sorry, I encountered an error processing your request. Please try again.', 'bot', 'error');
+            } finally {
+                isProcessing = false;
+                document.getElementById('sendButton').disabled = false;
+                document.getElementById('sendButton').textContent = 'Send';
+            }
+        }
+
+        function addMessage(content, sender, type = '') {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message ${type}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            
+            // Convert markdown-style formatting to HTML
+            content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            content = content.replace(/\n/g, '<br>');
+            
+            messageContent.innerHTML = content;
+            messageDiv.appendChild(messageContent);
+            chatMessages.appendChild(messageDiv);
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Allow Enter key to send message
+        document.getElementById('messageInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Auto-resize textarea
+        document.getElementById('messageInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+        });
+    </script>
+</body>
+</html> 
