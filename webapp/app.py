@@ -15,6 +15,15 @@ import json
 from werkzeug.utils import secure_filename
 import os
 
+# Add language detection
+try:
+    from langdetect import detect, DetectorFactory
+    DetectorFactory.seed = 0  # For consistent results
+    LANGDETECT_AVAILABLE = True
+except ImportError:
+    LANGDETECT_AVAILABLE = False
+    print("Warning: langdetect not available. Install with: pip install langdetect")
+
 # Add scripts directory to path - handle different working directories
 current_dir = Path(__file__).parent
 project_root = current_dir.parent
@@ -64,6 +73,51 @@ CORS(app)  # Enable CORS for TypeScript frontend integration
 # Initialize construction RAG chat system
 construction_rag_chat = None
 construction_document_processor = None
+
+def detect_language(text: str) -> str:
+    """
+    Detect the language of the input text
+    
+    Args:
+        text: Input text to analyze
+        
+    Returns:
+        Language code ('en', 'zh-cn', 'zh-tw', 'tl', 'ms') or 'en' as default
+    """
+    if not LANGDETECT_AVAILABLE:
+        return 'en'
+    
+    try:
+        # Detect language
+        lang_code = detect(text)
+        
+        # Map language codes to our supported languages
+        if lang_code == 'zh-cn':
+            return 'zh-cn'  # Simplified Chinese (Singapore)
+        elif lang_code == 'zh-tw':
+            return 'zh-tw'  # Traditional Chinese (Hong Kong)
+        elif lang_code == 'zh':
+            # For generic Chinese, try to determine simplified vs traditional
+            simplified_chars = ['简', '体', '汉', '语']
+            traditional_chars = ['簡', '體', '漢', '語']
+            
+            has_simplified = any(char in text for char in simplified_chars)
+            has_traditional = any(char in text for char in traditional_chars)
+            
+            if has_traditional and not has_simplified:
+                return 'zh-tw'  # Traditional Chinese (Hong Kong)
+            else:
+                return 'zh-cn'  # Default to Simplified Chinese (Singapore)
+        elif lang_code == 'tl':
+            return 'tl'  # Tagalog (Philippines)
+        elif lang_code == 'ms':
+            return 'ms'  # Malay (Malaysia)
+        else:
+            return 'en'  # Default to English
+            
+    except Exception as e:
+        logger.warning(f"Language detection failed: {e}")
+        return 'en'  # Default to English
 
 def get_chat_system():
     """Get or initialize the construction RAG chat system"""
@@ -134,7 +188,8 @@ def ask_question():
     Expected JSON payload:
     {
         "question": "What materials do I need for a residential extension?",
-        "use_context": true
+        "use_context": true,
+        "language": "en" (optional - auto-detected if not provided)
     }
     
     Returns:
@@ -142,7 +197,8 @@ def ask_question():
         "answer": "Response text",
         "sources": ["source1", "source2"],
         "used_context": true,
-        "model": "mistral"
+        "model": "mistral",
+        "detected_language": "en"
     }
     """
     try:
@@ -155,6 +211,7 @@ def ask_question():
         question = data.get('question', '').strip()
         use_context = data.get('use_context', True)
         analyze_task = data.get('analyze_task', False)
+        user_language = data.get('language', None)  # Allow user to specify language
         
         logger.info(f"Processing question: {question[:100]}...")
         logger.debug(f"use_context: {use_context}, analyze_task: {analyze_task}")
@@ -162,6 +219,14 @@ def ask_question():
         if not question:
             logger.warning("Empty question provided")
             return jsonify({"error": "Question is required"}), 400
+        
+        # Detect language if not provided
+        if user_language:
+            detected_language = user_language
+            logger.info(f"Using user-specified language: {detected_language}")
+        else:
+            detected_language = detect_language(question)
+            logger.info(f"Detected language: {detected_language}")
         
         # Get chat system
         chat_system = get_chat_system()
@@ -172,6 +237,9 @@ def ask_question():
         # Get response
         logger.info("Getting response from chat system")
         response = chat_system.ask(question, use_context=use_context, analyze_task=analyze_task)
+        
+        # Add language information to response
+        response['detected_language'] = detected_language
         
         # Log response summary
         if response.get("task_analysis"):
@@ -187,7 +255,8 @@ def ask_question():
             "answer": "Sorry, I encountered an error processing your request.",
             "sources": [],
             "used_context": False,
-            "model": "unknown"
+            "model": "unknown",
+            "detected_language": "en"
         }), 500
 
 @app.route('/ask/stream', methods=['POST'])
@@ -452,6 +521,57 @@ def run_evaluation():
         logger.error(f"Evaluation error: {e}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/languages', methods=['GET'])
+def get_supported_languages():
+    """Get supported languages for the construction assistant"""
+    try:
+        return jsonify({
+            "supported_languages": [
+                {
+                    "code": "en",
+                    "name": "English",
+                    "native_name": "English",
+                    "region": "UK"
+                },
+                {
+                    "code": "zh-cn",
+                    "name": "Simplified Chinese",
+                    "native_name": "简体中文",
+                    "region": "Singapore"
+                },
+                {
+                    "code": "zh-tw",
+                    "name": "Traditional Chinese", 
+                    "native_name": "繁體中文",
+                    "region": "Hong Kong"
+                },
+                {
+                    "code": "tl",
+                    "name": "Tagalog",
+                    "native_name": "Tagalog",
+                    "region": "Philippines"
+                },
+                {
+                    "code": "ms",
+                    "name": "Malay",
+                    "native_name": "Bahasa Malaysia",
+                    "region": "Malaysia"
+                }
+            ],
+            "default_language": "en",
+            "auto_detection": LANGDETECT_AVAILABLE,
+            "regional_focus": [
+                "Hong Kong",
+                "Singapore", 
+                "Malaysia",
+                "Philippines",
+                "UK"
+            ]
+        })
+    except Exception as e:
+        logger.error(f"Error getting supported languages: {e}")
+        return jsonify({"error": f"Internal server error: {str(e)}"}), 500
+
 @app.route('/langsmith-status', methods=['GET'])
 def get_langsmith_status():
     """Check LangSmith configuration status"""
@@ -479,6 +599,6 @@ if __name__ == '__main__':
     # Run the app
     app.run(
         host='0.0.0.0',  # Allow external connections
-        port=5000,
+        port=5050,
         debug=False  # Set to False for production
     ) 

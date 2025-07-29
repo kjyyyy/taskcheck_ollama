@@ -33,7 +33,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 class ConstructionRAGChat:
-    def __init__(self, context_dir: str = "context", model_name: str = "mistral-construction-uk:latest"):
+    def __init__(self, context_dir: str = "context", model_name: str = "mistral-construction:latest"):
         """
         Initialize the construction RAG chat system
         
